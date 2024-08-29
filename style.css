@@ -1,0 +1,204 @@
+/* YBoard Yotsuba style */
+
+@import url('/global.css');
+
+/* Page background */
+body {
+    background: #ffffee url("/image/fade.png") repeat-x 50% 0;
+    color: #800000;
+    font-family: arial,helvetica,sans-serif;
+    font-size: 13px;
+}
+
+/* The lines between posts */
+hr {
+    border-bottom: 1px solid #d9bfb7;
+}
+
+/* Links */
+a {
+    color: #0000ee;
+}
+a:hover {
+    color: #dd0000;
+}
+
+/* Tooltips, like message preview hovering */
+.tooltip {
+    border: 1px dotted #000000;
+    background-color: #f0e0d6;
+}
+
+/* The sliding-down settings-box */
+#settingsbox {
+background-color: #FFFFEE;
+border: 1px solid #880000;
+}
+
+/* Sidebar */
+#left {
+background: #ffffee url("/image/fade.png") repeat-x 50% 0;
+}
+#left a {
+color: #555500;
+}
+#left ul a:hover {
+background-color: #ffeecc;
+}
+#left li.header {
+background-color: #ffccaa;
+color: #000000;
+font-weight: bold;
+}
+
+/* Front page */
+#front h3 {
+background-color: #ffddbb;
+}
+.box {
+    border: 1px solid #880000;
+    background-color: #fffcf2;
+}
+.box_content a {
+    color: #880000;
+}
+#tabs {
+border-bottom: 1px solid #888888;
+}
+#tabs li {
+border-right: 1px solid #888888;
+border-top: 1px solid #888888;
+background-color: #ffddbb;
+}
+#tabs li a {
+color: #555500;
+}
+#tabs li:first-of-type {
+border-left: 1px solid #888888;
+}
+#tabs li.cur {
+font-weight: bold;
+padding-top: 6px;
+}
+.news h3 {
+    background-color: #ffccaa;
+    color: #000000;
+}
+
+/* Board list on top and bottom of the page */
+.boardnav {
+    font-size: 12px;
+    color: #BB8866;
+}
+.boardnav a {
+    color: #880000;
+}
+
+/* This message will be sent as a reply ... */
+.infobar {
+    background-color: #e04000;
+    color: #ffffff;
+}
+
+/* The posting form */
+#postform td.label {
+border: 1px solid #880000;
+background-color: #eeaa88;
+font-weight: 800;
+}
+
+/* Posts */
+.file p {
+    border: 2px dashed #aaaaaa;
+}
+.omitted {
+    color: #707070;
+}
+.answer {
+    background-color: #f0e0d6;
+    border-bottom: 1px solid #d9bfb7;
+    border-right: 1px solid #d9bfb7;
+}
+.doubles {
+    background-color: #f0b692;
+}
+.highlighted {
+    border: 2px dashed #eeaa88;
+}
+.fileinfo a {
+    color: #880000;
+    text-decoration: none;
+}
+.postinfo a {
+    color: #880000;
+}
+.postnumber a {
+    color: #880000;
+}
+.postsubject {
+    font-weight: 800;
+    color: #cc1105;
+}
+.postername {
+    color: #117743;
+    font-weight: 800;
+}
+.sage {
+    color: #0000FF;
+    text-decoration: underline;
+}
+.postertrip {
+    color: #117743;
+}
+.quote {
+    color: #789922;
+}
+.bluequote {
+    color: #226199;
+}
+.spoiler:hover .quote {
+    color: #008800;
+}
+.spoiler:hover a {
+    color: #60a0dc;
+}
+
+/* Board pagination on the bottom of the page */
+.pagination {
+    background-color: #f0e0d6;
+    border-bottom: 1px solid #d9bfb7;
+    border-right: 1px solid #d9bfb7;
+}
+.disabled {
+    color: #bb8866;
+}
+
+/* Banned -page */
+#banned {
+border: 1px solid #880000;
+background-color: #ffffee;
+}
+#banned h1 {
+background-color: #f0e0d6;
+}
+
+/* At least hidden threads -page uses this */
+.list td {
+    border: 1px solid #d9bfb7;
+}
+.list .threadinfo {
+    border-top: 1px solid #d9bfb7;
+}
+
+/* Followed threads -box */
+#followedtitle {
+background-color: #EEAA88;
+border: 1px solid #800000;
+}
+#followedbg {
+border: 1px dotted #EEAA88;
+background-color: #F0E0D6;
+}
+#followedfunctions {
+border-top: 1px solid #D9BFB7;
+}
