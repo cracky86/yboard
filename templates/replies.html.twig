@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="wrapper">
+<div id="right">
+<div class="boardheader">
+    <h1>Reply</h1>
+</div>
+<hr>
+<div class="center">
+    <form id="post" action="post.php" method="post" enctype="multipart/form-data">
+        <fieldset>
+            <table id="postform">
+                <tbody>
+                <tr>
+                    <td class="label">Options</td>
+                    <td>
+                        <label for="sage">
+                            <p>Sage (dont bump thread)</p>
+                        </label>
+                        <input type="checkbox" name="sage" id="sage">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="name">Name (leave empty for anonymous)</label>
+                    </td>
+                    <td>
+                        <input name="name" id="name" maxlength="60" type="text">
+                    </td>
+                    <td>
+                        <input value="Send" name="submit" id="submit" type="submit">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="msg">Message</label>
+                    </td>
+                    <td>
+                        <textarea name="msg" id="msg" rows="4" cols="48" autocomplete="off"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="captcha">CAPTCHA</label>
+                        <div class=image-container>
+                            <img src="/captcha.php" width="192" height="48" alt="CAPTCHA" class="image1">
+                            <img src="/captcha-2.php" id="offset-image" class="image2">
+                            <br><br><br>
+                            <input type="range" id="offset-slider" min="0" max="1600" value="0">
+                            <button type="button" onclick="confirm('Solve this CAPTCHA by moving the slider until you see 2 words, then type the solution. The CAPTCHA is only composed of lowercase characters');">Help</button>
+                            <script src="/script.js"></script>
+                        </div>
+                    </td>
+                    <td>
+                        <input name="captcha" id="captcha" type="text" autocomplete="off">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="file">File</label>
+                    </td>
+                    <td>
+                        <input name="file" id="file" type="file" size="35">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="postpassword">
+                            <abbr title="Is used to delete posts and files.">Password</abbr>
+                        </label>
+                    </td>
+                    <td>
+                        <input name="postpassword" id="postpassword" value="" type="text" autocomplete="off">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <ul id="postinfo">
+                            <li>Allowed filetypes are gif, jpeg, jpg, png</li>
+                            <li>The biggest file size is 2 MB.</li>
+                        </ul>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </form>
+</div>
+
+{% if post %}
+    <hr class="clear">
+    {% if post.has_image == 1 %}
+        <div class="file" id="file_{{ post.post_id }}">
+            <img src="{{ post.post_image_path | replace({'images/': 'images/THUMB_'}) }}">
+        </div>
+    {% endif %}
+    <div class="postinfo">
+        <p>
+            <span class="postsubject">{{ post.post_title }}</span>
+            <span class="postername">{{ post.poster_name }}</span>
+	    {{ post.post_timestamp|date("Y-m-d H:i:s") }}
+            <span class="postnumber">No.{{ post.post_id }}</span>
+        </p>
+    </div>
+    <div class="post">
+        <p>{{ post.post_content | nl2br }}</p>
+    </div>
+    
+    {% for reply in replies %}
+        <div class="answer">
+            {% if reply.has_image == 1 %}
+                <div class="file" id="file_{{ reply.reply_id }}">
+                    <img src="{{ reply.reply_image_path | replace({'images/': 'images/THUMB_'}) }}">
+                </div>
+            {% endif %}
+            <div class="postinfo">
+                <p>
+                  <span class="postername">{{ reply.replier_name }}</span>
+		  <span> {{ reply.reply_timestamp|date("Y-m-d H:i:s") }} </span>
+                  <span class="postnumber">No.{{ reply.reply_id }}</span>
+                </p>
+            </div>
+            <div class="post">
+                <p>{{ reply.reply_content | nl2br }}</p>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+</div>
+</body>
+</html>

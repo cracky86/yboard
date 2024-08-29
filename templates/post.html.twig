@@ -1,0 +1,24 @@
+<div class="post">
+    {% if post.has_image %}
+        <div class="file" id="file_{{ post.post_id }}">
+            <img src="{{ post.thumb_image_path }}">
+        </div>
+    {% endif %}
+    <div class="postinfo">
+        <p>
+            <span class="postsubject">{{ post.post_title }}</span>
+            <span class="postername">{{ post.poster_name }}</span>
+            {{ post.post_timestamp|date("Y-m-d H:i:s") }}
+            <span class="postnumber"> No.{{ post.post_id }}</span>
+            <span class="answer_link">[ <a href="reply/index.php?thread={{ post.post_id }}" class="button">Reply</a> ]</span>
+        </p>
+    </div>
+    <div class="post-content">
+        <p>{{ post.post_content|nl2br }}</p>
+    </div>
+
+    {# Loop through replies and include the reply template #}
+    {% for reply in post.replies %}
+        {% include 'reply.html.twig' with { 'reply': reply } %}
+    {% endfor %}
+</div>

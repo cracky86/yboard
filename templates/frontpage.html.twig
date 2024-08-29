@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css">
+    <title>yBoard</title>
+    <link rel="icon" type="image/x-icon" href="/image/favicon.gif">
+  </head>
+  <body>
+    <div id="front">
+      <div id="title">
+	<h1>yBoard</h1>
+	<h2>Under construction</h2>
+      </div>
+      <br class="clear">
+      <div class="box">
+	<h3>Discussion boards</h3>
+	<div class="box_content">
+	  <div class="box_col">
+	    {% for board in boards %}
+	    <p class="">
+	      <a href="/boards/{{ board }}">
+		<span class="boardname">{{ board }}</span>
+	      </a>
+	    </p>
+	    {% endfor %}
+	  </div>
+	  <br class="clear">
+	</div>
+      </div>
+  </body>
+</html>
