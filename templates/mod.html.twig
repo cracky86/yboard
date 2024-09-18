@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css">
+    <title>Mod panel</title>
+    <link rel="icon" type="image/x-icon" href="/image/favicon.gif">
+  </head>
+  <body>
+    {% if auth == 0 %}
+    <div class="center">
+      <h1>Login</h1>
+      <hr>
+      <form id="post" action="login.php" method="post" enctype="multipart/form-data">
+	<fieldset>
+	  <table id="postform">
+	    <tbody>
+	      <tr>
+		<td class="label">
+		  <label for="username">Username</label>
+		</td>
+		<td>
+		  <input id="username" name="username" maxlength="60" type="text">
+		</td>
+	      </tr>
+	      <tr>
+		<td class="label">
+		  <label for="pass">Password</label>
+		</td>
+		<td>
+		  <input id="pass" name="pass" maxlength="60" type="password">
+		  <input value="Login" name="submit" id="submit" type="submit">
+		</td>
+	      </tr>
+	    </tbody>
+	  </table>
+	</fieldset>
+      </form>
+    </div>
+    {% elseif perms[1] %}
+    <div class="center">
+      <h1>Change password</h1>
+      <h3>You must change your password before you can access the mod panel</h3>
+      <hr>
+      <form id="post" action="changepass.php" method="post" enctype="multipart/form-data">
+	<fieldset>
+	  <table id="postform">
+	    <tbody>
+	      <tr>
+		<td class="label">
+		  <label for="pass">Password</label>
+		</td>
+		<td>
+		  <input id="pass" name="pass" maxlength="60" type="password">
+		  <input value="Change password" name="submit" id="submit" type="submit">
+		</td>
+	      </tr>
+	    </tbody>
+	  </table>
+	</fieldset>
+      </form>
+      {% else %}
+      {% if menu == "" %}
+      <h1>Mod panel</h1>
+      <h3>Logged in as {{ username }}</h3>
+      <br>
+      <h3>Incorrect password attempts: {{ logon_attempts }}</h3>
+      <hr>
+      {% if perms[3] %}
+      <a href="?menu=newboard">
+	<p>Create new board</p>
+	<hr>
+      </a>
+      {% endif %}
+
+      {% if perms[2] %}
+      <a href="?menu=manage">
+	<p>Manage accounts</p>
+	<hr>
+      </a>
+      {% endif %}
+      
+      <a href="/logout.php">
+	<p>Log out</p>
+      </a>
+      {% endif %}
+      {% if menu == "newboard" and perms[3] %}
+      <h1>Create new board</h1>
+      <hr>
+      <br class="clear">
+      <form id="post" action="newboard.php" method="post" enctype="multipart/form-data">
+	<fieldset>
+	  <table id="postform">
+	    <tbody>
+	      <tr>
+		<td class="label">
+		  <label for="boardname">Board name</label>
+		</td>
+		<td>
+		  <input id="boardname" name="boardname" maxlength="60" type="text">
+		  <input value="Create" name="submit" id="submit" type="submit">
+		</td>
+	      </tr>
+	    </tbody>
+	  </table>
+	</fieldset>
+      </form>
+
+      {% endif %}
+      {% if menu == "manage" and perms[2] %}
+      
+      <h1>Manage accounts</h1>
+      <hr>
+      <br class="clear">
+      <div id="front">
+	<div class="box box_half box_nomargin">
+	  <h3>Users</h3>
+	  <div class="box_content">
+	    <div class="box_col">
+	      <p class="">User ID</p>
+	    </div>
+	    <div class="box_col">
+	      <p class="">Username</p>
+	    </div>
+	    <div class="box_col">
+	      <p class="">Permissions value</p>
+	    </div>
+
+	    <form action="accman.php" method="post" enctype="multipart/form-data">
+	      {% for user in users %}
+	      <div class="box_col">
+		<p class="">
+		  <span>{{user.id_account}}</span>
+		</p>
+	      </div>
+	      
+	      <div class="box_col">
+		<p class="">
+		  <input type="text" name="username_{{user.id_account}}" id="username_{{user.id_account}}" class="boardname" value="{{ user.username }}" style="width:100px"></input>
+		</p>
+	      </div>
+
+	      <div class="box_col">
+		<p class="rowbg">
+		  <input type="text" name="permissions_{{user.id_account}}" id="permissions{{user.id_account}}" class="boardname" value="{{ user.permissions }}" style="width:100px"></input>
+		</p>
+	      </div>
+	      <br class="clear">
+	      {% endfor %}
+	      <input value="Edit account(s)" name="submit" id="submit" type="submit" ></input>
+	    </form>
+	    
+	  </div>
+	</div>
+
+	<div class="box box_half">
+	  <h3>User info</h3>
+	  <div class="box_content">
+	    <div class="box_col">
+	      <p class="">Username</p>
+	    </div>
+	    <div class="box_col">
+	      <p class="">Last login</p>
+	    </div>
+	    <div class="box_col">
+	      <p class="">Invalid password attempts</p>
+	    </div>
+	    
+	    {% for user in users %}
+	    <div class="box_col">
+	      <p class="">
+		<span>{{user.username}}</span>
+	      </p>
+	    </div>
+	    
+	    <div class="box_col">
+	      <p class="">
+		<span>{{  user.last_login }}</span>
+	      </p>
+	    </div>
+
+	    <div class="box_col">
+	      <p class="rowbg">
+		<span>{{ user.wrong_password_attempts }}</span>
+	      </p>
+	    </div>
+	    <br class="clear">
+	    {% endfor %}
+	  </div>
+	</div>
+      </div>
+
+    </div>
+    <br class="clear">
+    <hr>
+    <a href="/mod.php">
+      <p>Back</p>
+    </a>
+    {% endif %}
+    
+    {% endif %}
+    
+  </body>
+</html>

@@ -1,3 +1,116 @@
-{% for post in posts %}
-    {% include 'post.html.twig' with { 'post': post } %}
-{% endfor %}
+<!DOCTYPE html>
+<html>
+    <head>
+	<link rel="stylesheet" href="/style.css">
+	<link rel="icon" type="image/x-icon" href="/image/favicon.gif">
+    </head>
+    <body>
+	<div id="wrapper">
+	    <div id="right">
+		<div class="boardheader">
+		    <h1>{{ header }}</h1>
+		</div>
+		<hr>
+		<div class="center">
+		    <form id="post" action="post.php" method="post" enctype="multipart/form-data">
+			<fieldset>
+			    <table id="postform">
+				<tbody>
+				    <tr>
+					<td class="label">
+					    <label for="name">Name (leave empty for anonymous)</label>
+					</td>
+					<td>
+					    <input name="name" id="name" maxlength="60" type="text">
+					</td>
+				    </tr>
+				    <tr>
+					<td class="label">
+					    <label for="subject">Subject</label>
+					</td>
+					<td>
+					    <input name="subject" id="subject" maxlength="60" type="text" autocomplete="off">
+					    <input value="Send" name="submit" id="submit" type="submit">
+					</td>
+				    </tr>
+				    <tr>
+					<td class="label">
+					    <label for="msg">Message</label>
+					</td>
+					<td>
+					    <textarea name="msg" id="msg" rows="4" cols="48" autocomplete="off"></textarea>
+					</td>
+				    </tr>
+				    {% if not session.solved %}
+					<tr>
+					    <td class="label">
+						<label for="captcha">CAPTCHA</label>
+						<div class=image-container>
+						    <img src="/captcha.php" width="192" height="48" alt="CAPTCHA" class="image1">
+						    <img src="/captcha-2.php" id="offset-image"  id="offset-image" class="image2">
+						    <br><br><br>
+						    <input type="range" id="offset-slider" min="0" max="1600" value="0">
+						    <button type="button" onclick="confirm('Solve this CAPTCHA by moving the slider until you see 2 words, then type the solution. The CAPTCHA is only composed of lowercase characters');">Help</button>
+						    <script src="/script.js"></script>
+						</div>
+					    </td>
+					    <td>
+						<input name="captcha" id="captcha" type="text" autocomplete="off">
+					    </td>
+					</tr>
+				    {% endif %}
+				    <tr>
+					<td class="label">
+					    <label for="file">File</label>
+					</td>
+					<td>
+					    <input name="file" id="file" type="file" size="35">
+					</td>
+				    </tr>
+				    <tr>
+					<td class="label">
+					    <label for="postpassword">
+						<abbr title="Is used to delete posts and files.">Password</abbr>
+					    </label>
+					</td>
+					<td>
+					    <input name="postpassword" id="postpassword" value="" type="text" autocomplete="off">
+					</td>
+				    </tr>
+				    <tr>
+					<td colspan="2">
+					    <ul id="postinfo">
+						<li>Allowed filetypes are gif, jpeg, jpg, png</li>
+						<li>The biggest file size is 2 MB.</li>
+					    </ul>
+					</td>
+				    </tr>
+				</tbody>
+			    </table>
+			</fieldset>
+		    </form>
+		</div>
+		<hr>
+		<form id="delete" action="delete.php" method="post" enctype="multipart/form-data">
+		    {% for post in posts %}
+			{% include 'post.html.twig' with { 'post': post } %}
+		    {% endfor %}
+		    <br class="clear">
+		    <hr>
+		    <table>
+			<tr>
+			    <td class="label">
+				<label for="password">Password</label>
+			    </td>
+			    <td>
+				<input id="password" name="password" maxlength="60" type="password">
+			    </td>
+			    <td>
+				<input value="Delete posts" name="submit" id="submit" type="submit">
+			    </td>
+			</tr>
+		    </table>
+		</form>
+
+    </body>
+</html>

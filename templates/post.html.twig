@@ -1,4 +1,5 @@
 <div class="post">
+
     {% if post.has_image %}
         <div class="file" id="file_{{ post.post_id }}">
             <img src="{{ post.thumb_image_path }}">
@@ -6,6 +7,7 @@
     {% endif %}
     <div class="postinfo">
         <p>
+	    <input type="checkbox" id={{ post.post_id }} name={{ post.post_id }} value="{{ post.post_id }}">
             <span class="postsubject">{{ post.post_title }}</span>
             <span class="postername">{{ post.poster_name }}</span>
             {{ post.post_timestamp|date("Y-m-d H:i:s") }}
