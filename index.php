@@ -1,7 +1,7 @@
 <?php
-require_once "/srv/http/setup.php";
+require_once "setup.php";
 
-$path = "/srv/http/boards/";
+$path = "boards/";
 $boards = array_diff(scandir($path), array('.', '..'));
 
 echo $twig->render("frontpage.html.twig", ["boards" => $boards]);
